@@ -22,15 +22,25 @@ func main() {
 
 	db.AutoMigrate(&book.Book{})
 
-	book := book.Book{}
-	book.Title = "Man Tiger"
-	book.Price = 90000
-	book.Rating = 5
-	book.Description = "This is a book about tiger-like man"
+	// book := book.Book{}
+	// book.Title = "Man Tiger"
+	// book.Price = 90000
+	// book.Rating = 5
+	// book.Description = "This is a book about tiger-like man"
 
-	err = db.Create(&book).Error
+	// err = db.Create(&book).Error
+	// if err != nil {
+	// 	fmt.Println("Error creating book record")
+	// }
+
+	// Fetch data
+	var books []book.Book
+	err = db.Debug().First(&books, 1).Error
 	if err != nil {
 		fmt.Println("Error creating book record")
+	}
+	for _, v := range books {
+		fmt.Println("Title : ", v.Title)
 	}
 
 	router := gin.Default()
